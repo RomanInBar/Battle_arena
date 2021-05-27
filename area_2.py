@@ -12,6 +12,7 @@ class Thing:
         self.protection = protection
 
     def things_list(self):
+        """Создает список вещей для героев."""
         Thing.things.append(self)
 
 
@@ -84,9 +85,11 @@ class Person:
         self.protection = protection
 
     def warriors_list(self):
+        """Создает список героев."""
         Person.warriors.append(self)
 
     def opponents(self):
+        """Отбирает двух случайных героев."""
         player_1 = choice(Person.warriors)
         player_1.equip()
         player_2 = choice(Person.warriors)
@@ -102,6 +105,7 @@ class Person:
         self.opponents()
 
     def equip(self):
+        """Снаряжает героя случайной экипировкой."""
         for i in range(4):
             player_thing = choice(Thing.things)
             self.hp += player_thing.hp
@@ -110,13 +114,19 @@ class Person:
             Person.equips.append(player_thing.name)
 
     def current_round(self):
+        """Увеличивает значение раунда."""
         Person.raund += 1
 
     def attack(self, enemy):
+        """Расчитывает получаемый урон."""
         punch = self.damage - (self.damage / 100 * enemy.protection)
         return punch
 
     def comments(self, enemy):
+        """
+        Выводит в консоль информацию об уроне
+         и оставшихся очках жизни.
+        """
         print(Person.DAMAGE.format(
             yellow=Fore.YELLOW,
             blue=Fore.BLUE,
@@ -129,6 +139,7 @@ class Person:
             hp=round(enemy.hp, 2)))
 
     def war(self, opponent):
+        """Бой между героями, определение чемпиона."""
         self.hp -= self.attack(opponent)
         self.comments(opponent)
         if opponent.hp <= 0:
