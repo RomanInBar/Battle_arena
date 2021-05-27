@@ -63,6 +63,7 @@ Assault_Cuirass = Thing('Assault Cuirass', protection=10).things_list()
 
 
 class Person:
+    RAUND = 'Раунд: {}'
     LOSER = '{} погибает.'
     WINNER = 'Победитель: {}!'
     TOTAL_WINNER = 'Абсолютный чемпион турнира: {}!!!'
@@ -74,6 +75,7 @@ class Person:
 
     equips = []
     warriors = []
+    raund = 0
 
     def __init__(self, name, hp=0, damage=0, protection=0):
         self.name = name
@@ -90,6 +92,11 @@ class Person:
         player_2 = choice(Person.warriors)
         player_2.equip()
         if player_1 != player_2:
+            self.current_round()
+            print()
+            print(
+                f'{Fore.LIGHTRED_EX}{Person.RAUND.format(Person.raund)}\n'
+                f'{player_1.name} против {player_2.name}')
             player_1.war(player_2)
             return
         self.opponents()
@@ -101,6 +108,9 @@ class Person:
             self.damage += player_thing.damage
             self.protection += player_thing.protection
             Person.equips.append(player_thing.name)
+
+    def current_round(self):
+        Person.raund += 1
 
     def attack(self, enemy):
         punch = self.damage - (self.damage / 100 * enemy.protection)
