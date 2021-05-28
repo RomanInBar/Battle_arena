@@ -110,6 +110,7 @@ class Person:
         self.opponents()
 
     def return_of_characteristics(self):
+        """Сбрасывает характеристики героя до изначальных."""
         for person in Person.warr_out_equip:
             if self.name == person.name:
                 self.hp = person.hp
