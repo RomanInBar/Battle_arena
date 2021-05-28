@@ -74,7 +74,7 @@ class Person:
         'на {red}{damage}{reset} '
         'у {blue}{person_2}{reset} осталось {green}{hp}{reset}')
 
-    equips = []
+    warr_out_equip = []
     warriors = []
     raund = 0
 
@@ -83,18 +83,23 @@ class Person:
         self.hp = hp
         self.damage = damage
         self.protection = protection
+        self.equips = []
 
     def warriors_list(self):
         """Создает список героев."""
         Person.warriors.append(self)
 
+    def warriors_without_equip(self):
+        """Список героев без эквипа."""
+        Person.warr_out_equip.append(self)
+
     def opponents(self):
         """Отбирает двух случайных героев."""
         player_1 = choice(Person.warriors)
-        player_1.equip()
         player_2 = choice(Person.warriors)
-        player_2.equip()
         if player_1 != player_2:
+            player_1.equip()
+            player_2.equip()
             self.current_round()
             print()
             print(
@@ -104,14 +109,24 @@ class Person:
             return
         self.opponents()
 
+    def return_of_characteristics(self):
+        for person in Person.warr_out_equip:
+            if self.name == person.name:
+                self.hp = person.hp
+                self.damage = person.damage
+                self.protection = person.protection
+
     def equip(self):
         """Снаряжает героя случайной экипировкой."""
+        if len(self.equips) > 0:
+            self.equips = []
+        self.return_of_characteristics()
         for i in range(4):
             player_thing = choice(Thing.things)
             self.hp += player_thing.hp
             self.damage += player_thing.damage
             self.protection += player_thing.protection
-            Person.equips.append(player_thing.name)
+            self.equips.append(player_thing.name)
 
     def current_round(self):
         """Увеличивает значение раунда."""
@@ -201,6 +216,18 @@ Windranger = Paladin('Windranger', 560, 42, 1.7).warriors_list()
 Bane = Paladin('Bane', 640, 57, 4.5).warriors_list()
 Jakiro = Paladin('Jakiro', 740, 53, 3.4).warriors_list()
 Lina = Paladin('Lina', 600, 49, 3.6).warriors_list()
+
+abaddon = Warrior('Abaddon', 660, 51, 3).warriors_without_equip()
+alchemist = Warrior('Alchemist', 700, 49, 2.4).warriors_without_equip()
+earth_Spirit = Warrior('Earth Spirit', 640, 47, 2.7).warriors_without_equip()
+tusk = Warrior('Tusk', 660, 50, 4.6).warriors_without_equip()
+omniknight = Warrior('Omniknight', 680, 55, 4.4).warriors_without_equip()
+
+oracle = Paladin('Oracle', 600, 39, 2.4).warriors_without_equip()
+windranger = Paladin('Windranger', 560, 42, 1.7).warriors_without_equip()
+bane = Paladin('Bane', 640, 57, 4.5).warriors_without_equip()
+jakiro = Paladin('Jakiro', 740, 53, 3.4).warriors_without_equip()
+lina = Paladin('Lina', 600, 49, 3.6).warriors_without_equip()
 
 
 start = Person('Judge')
