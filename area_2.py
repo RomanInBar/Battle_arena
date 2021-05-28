@@ -1,6 +1,8 @@
 from random import choice
 from colorama import Fore, Style
 
+from objects import pal_list, warr_list, all_things_list
+
 
 class Thing:
     things = []
@@ -14,53 +16,6 @@ class Thing:
     def things_list(self):
         """Создает список вещей для героев."""
         Thing.things.append(self)
-
-
-Skull_Basher = Thing('Skull Basher', damage=25).things_list()
-Gauntlets_of_Strength = Thing('Gauntlets of Strength', damage=3).things_list()
-Ring_of_Protection = Thing('Ring of Protection', protection=2).things_list()
-Claymore = Thing('Claymore', damage=20).things_list()
-Hood_of_Defiance = Thing('Hood of Defiance', protection=10).things_list()
-Vanquard = Thing('Vanquard', hp=250, protection=7).things_list()
-Blabe_Mail = Thing('Blabe Mail', damage=28, protection=6).things_list()
-Aeon_Disk = Thing('Aeon Disk', hp=300).things_list()
-Soul_Booster = Thing('Soul Booster', hp=425).things_list()
-Eternal_Shroud = Thing('Eternal Shroud', hp=200, protection=4).things_list()
-Crimson_Guard = Thing('Crimson Guard', hp=250, protection=6).things_list()
-Lotus_Orb = Thing('Lotus Orb', protection=10, hp=250).things_list()
-Arcane_Blink = Thing('Arcane Blink', hp=25).things_list()
-Swift_Blink = Thing('Swift Blink', protection=7).things_list()
-Overwhelming_Blink = Thing('Overwhelming Blink', damage=25).things_list()
-Mjollnir = Thing('Mjollnir', damage=24).things_list()
-Eye_of_Skadi = Thing(
-    'Eye of Skadi', hp=225, damage=25, protection=7).things_list()
-Satanic = Thing('Satanic', damage=80).things_list()
-Yasha_and_Kaya = Thing(
-    'Yasha and Kaya', damage=12, hp=16, protection=7).things_list()
-Sange_and_Yasha = Thing('Sange and Yasha', damage=46).things_list()
-Heavens_Halberd = Thing("Heaven's Halberd", damage=20).things_list()
-Magic_Wand = Thing('Magic Wand', hp=30, damage=30, protection=3).things_list()
-Null_Talisman = Thing('Null Talisman', damage=20).things_list()
-Wraith_Band = Thing('Wraith Band', damage=20, protection=6).things_list()
-Bracer = Thing('Bracer', damage=8, hp=10).things_list()
-Soul_Ring = Thing('Soul Ring', damage=6, protection=2).things_list()
-Orb_of_Corrosion = Thing('Orb of Corrosion', hp=150).things_list()
-Falcon_Blade = Thing(
-    'Falcon Blade', hp=175, damage=10, protection=9).things_list()
-Phase_Boots = Thing('Phase Boots', damage=30, protection=4).things_list()
-Helm_of_the_Overlord = Thing(
-    'Helm of the Overlord', hp=280, damage=20, protection=8).things_list()
-Blitz_Knuckles = Thing('Blitz Knuckles', damage=35).things_list()
-Mithril_Hammer = Thing('Mithril Hammer', damage=24).things_list()
-Javelin = Thing('Javelin', damage=70).things_list()
-Claymore = Thing('Claymore', damage=20).things_list()
-Broadsword = Thing('Broadsword', damage=15).things_list()
-Helm_of_Iron_Will = Thing(
-    'Helm of Iron Will', hp=50, protection=6).things_list()
-Quarterstaff = Thing('Quarterstaff', damage=20).things_list()
-Chainmail = Thing('Chainmail', protection=4).things_list()
-Blades_of_Attack = Thing('Blades of Attack', damage=9).things_list()
-Assault_Cuirass = Thing('Assault Cuirass', protection=10).things_list()
 
 
 class Person:
@@ -90,7 +45,7 @@ class Person:
         Person.warriors.append(self)
 
     def warriors_without_equip(self):
-        """Список героев без эквипа."""
+        """Список героев без экипа."""
         Person.warr_out_equip.append(self)
 
     def opponents(self):
@@ -206,29 +161,25 @@ class Healer(Person):
     pass
 
 
-Abaddon = Warrior('Abaddon', 660, 51, 3).warriors_list()
-Alchemist = Warrior('Alchemist', 700, 49, 2.4).warriors_list()
-Earth_Spirit = Warrior('Earth Spirit', 640, 47, 2.7).warriors_list()
-Tusk = Warrior('Tusk', 660, 50, 4.6).warriors_list()
-Omniknight = Warrior('Omniknight', 680, 55, 4.4).warriors_list()
+for hero in warr_list:
+    name, hp, damage, protection = hero
+    Warrior(name, hp, damage, protection).warriors_list()
 
-Oracle = Paladin('Oracle', 600, 39, 2.4).warriors_list()
-Windranger = Paladin('Windranger', 560, 42, 1.7).warriors_list()
-Bane = Paladin('Bane', 640, 57, 4.5).warriors_list()
-Jakiro = Paladin('Jakiro', 740, 53, 3.4).warriors_list()
-Lina = Paladin('Lina', 600, 49, 3.6).warriors_list()
+for hero in warr_list:
+    name, hp, damage, protection = hero
+    Warrior(name, hp, damage, protection).warriors_without_equip()
 
-abaddon = Warrior('Abaddon', 660, 51, 3).warriors_without_equip()
-alchemist = Warrior('Alchemist', 700, 49, 2.4).warriors_without_equip()
-earth_Spirit = Warrior('Earth Spirit', 640, 47, 2.7).warriors_without_equip()
-tusk = Warrior('Tusk', 660, 50, 4.6).warriors_without_equip()
-omniknight = Warrior('Omniknight', 680, 55, 4.4).warriors_without_equip()
+for hero in pal_list:
+    name, hp, damage, protection = hero
+    Warrior(name, hp, damage, protection).warriors_list()
 
-oracle = Paladin('Oracle', 600, 39, 2.4).warriors_without_equip()
-windranger = Paladin('Windranger', 560, 42, 1.7).warriors_without_equip()
-bane = Paladin('Bane', 640, 57, 4.5).warriors_without_equip()
-jakiro = Paladin('Jakiro', 740, 53, 3.4).warriors_without_equip()
-lina = Paladin('Lina', 600, 49, 3.6).warriors_without_equip()
+for hero in pal_list:
+    name, hp, damage, protection = hero
+    Warrior(name, hp, damage, protection).warriors_without_equip()
+
+for thing in all_things_list:
+    name, hp, damage, protection = thing
+    Thing(name, hp, damage, protection).things_list()
 
 
 start = Person('Judge')
